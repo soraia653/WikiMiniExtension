@@ -3,6 +3,7 @@
 namespace MediaWiki\Extension\Wikimini\api;
 
 use ApiBase;
+use User;
 use MediaWiki\MediaWikiServices;
 
 class ApiCreateClass extends ApiBase {
@@ -19,7 +20,6 @@ class ApiCreateClass extends ApiBase {
 
         // create connection to write DB
         $lb = MediaWikiServices::getInstance()->getDBLoadBalancer();
-
         $dbw = $lb->getConnectionRef( DB_PRIMARY );
 
         // get params and make sure class name is provided
@@ -28,10 +28,7 @@ class ApiCreateClass extends ApiBase {
 
         $vals = [
             'class_name' =>$params['class_name'],
-            'class_start' => '2022-01-01',
-            'class_end' => '2022-01-11',
-            'class_teacher_id' => 1,
-            'class_token' => '213sada2'
+            'class_teacher_user_id' => 1
         ];
 
         // create class row in DB
@@ -44,8 +41,8 @@ class ApiCreateClass extends ApiBase {
         }
 
         $stuff = [$vals];
-        $r = [ 'new_class' => $stuff ];
-		$this->getResult()->addValue( null, $this->getModuleName(), $r );
+        $r = [ 'created_class' => $stuff ];
+        $this->getResult()->addValue( null, $this->getModuleName(), $r );
 
 	}
 
@@ -58,8 +55,11 @@ class ApiCreateClass extends ApiBase {
         ];
     }
 
-    public function getParamDescription() {
-        return array('class_name' => 'The name given to the class of students.');
-    }
+    protected function getExamplesMessages() {
+		return [
+			'action=createclass&class_name=example'
+				=> 'apihelp-query+createclass-example-1'
+		];
+	}
 
 }
