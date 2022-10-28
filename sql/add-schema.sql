@@ -1,3 +1,18 @@
+<<<<<<< HEAD
+=======
+-- Teachers
+CREATE TABLE IF NOT EXISTS /*_*/wm_teachers (
+  teacher_id                  INT unsigned        NOT NULL PRIMARY KEY auto_increment,
+  teacher_user_id             INT unsigned        NOT NULL, -- foreign key to users.user_id
+  teacher_user_name           VARCHAR(255)        NOT NULL -- Username of the teacher
+)/*$wgDBTableOptions*/;
+
+-- Teachers index
+CREATE INDEX /*i*/wm_teacher_id ON /*_*/wm_teachers (teacher_id);
+CREATE INDEX /*i*/wm_teacher_user_id ON /*_*/wm_teachers (teacher_user_id);
+CREATE INDEX /*i*/wm_teacher_user_name ON /*_*/wm_teachers (teacher_user_name);
+
+>>>>>>> a2487c2f5d4d6e2ba9d49f03f8ddd97c8e0c7c34
 -- Classes
 CREATE TABLE IF NOT EXISTS /*_*/wm_classes (
   class_id                  INT unsigned        NOT NULL PRIMARY KEY auto_increment,
@@ -9,6 +24,21 @@ CREATE TABLE IF NOT EXISTS /*_*/wm_classes (
 CREATE INDEX /*i*/wm_class_id ON /*_*/wm_classes (class_id);
 CREATE INDEX /*i*/wm_class_name ON /*_*/wm_classes (class_name);
 CREATE INDEX /*i*/wm_class_teacher_user_id ON /*_*/wm_classes (class_teacher_user_id);
+<<<<<<< HEAD
+=======
+
+-- Students
+CREATE TABLE IF NOT EXISTS /*_*/wm_students (
+  student_id                  INT unsigned        NOT NULL PRIMARY KEY auto_increment,
+  student_user_id             INT unsigned        NOT NULL, -- foreign key to users.user_id
+  student_user_name           VARCHAR(255)        NOT NULL -- Username of the student
+)/*$wgDBTableOptions*/;
+
+-- Students index
+CREATE INDEX /*i*/wm_student_id ON /*_*/wm_students (student_id);
+CREATE INDEX /*i*/wm_student_user_id ON /*_*/wm_students (student_user_id);
+CREATE INDEX /*i*/wm_student_user_name ON /*_*/wm_students (student_user_name);
+>>>>>>> a2487c2f5d4d6e2ba9d49f03f8ddd97c8e0c7c34
 
 -- Links the students with their classes.
 CREATE TABLE IF NOT EXISTS /*_*/wm_students_per_class (
