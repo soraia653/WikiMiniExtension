@@ -48,10 +48,15 @@
 		"MediaWiki\\Extension\\Wikimini\\": "includes/"
 	},
 	"APIModules": {
-		"createclass": "MediaWiki\\Extension\\Wikimini\\api\\ApiCreateClass"
+		"createclass": "MediaWiki\\Extension\\Wikimini\\api\\ApiCreateClass",
+		"createtask": "MediaWiki\\Extension\\Wikimini\\api\\ApiCreateTask",
+		"addstudent": "MediaWiki\\Extension\\Wikimini\\api\\ApiAddStudentToClass",
+		"givetask": "MediaWiki\\Extension\\Wikimini\\api\\ApiAddTaskToStudent"
 	},
 	"APIListModules": {
-		"allclasses": "MediaWiki\\Extension\\Wikimini\\api\\ApiAllClasses"
+		"allclasses": "MediaWiki\\Extension\\Wikimini\\api\\ApiAllClasses",
+		"studentsinclass": "MediaWiki\\Extension\\Wikimini\\api\\ApiStudentsInClass",
+		"getstudentstasks": "MediaWiki\\Extension\\Wikimini\\api\\ApiGetStudentsTasks"
 	},
 	"namespaces": [
 		{
@@ -71,6 +76,48 @@
 			"defaultcontentmodel": "wikitext"
 		}
 	],
+	"AddGroups": {
+		"coordinators": [
+			"TeachersGroup",
+			"ParentsGroup"
+		],
+		"othermembers": [
+			"StudentsGroup"
+		]
+	},
+	"AvailableRights": [
+		"r_create_class",
+		"r_delete_class",
+		"r_add_student",
+		"r_rem_student",
+		"r_edit_article",
+		"r_approve_article",
+		"r_delete_article"
+	],
+	"GroupPermissions": {
+		"*": {
+			"r_create_class": false,
+			"r_delete_class": false,
+			"r_add_student": false,
+			"r_rem_student": false,
+			"r_edit_article": false,
+			"r_approve_article": false,
+			"r_delete_article": false
+		},
+		"TeachersGroup": {
+			"r_create_class": true,
+			"r_delete_class": true,
+			"r_add_student": true,
+			"r_rem_student": true,
+			"r_edit_article": true,
+			"r_approve_article": true,
+			"r_delete_article": true,
+			"userrights": true
+		},
+		"StudentsGroup": {
+			"r_edit_article": true
+		}
+	},
 	"Hooks": {
 		"BeforePageDisplay": "handleHooks",
 		"ParserFirstCallInit": "handleHooks",
@@ -83,7 +130,9 @@
 		"GetMagicVariableIDs": "handleMoreHooks",
 		"LoadExtensionSchemaUpdates": {
 			"handler": "handleMoreHooks"
-		}
+		},
+		"APIGetAllowedParams": "handleMoreHooks",
+		"APIAfterExecute": "handleMoreHooks"
 	},
 	"HookHandlers": {
 		"handleHooks": {
